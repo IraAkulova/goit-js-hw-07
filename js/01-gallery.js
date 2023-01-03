@@ -8,6 +8,7 @@ import { galleryItems } from './gallery-items.js';
 const galleryEl = document.querySelector('.gallery');
 const galleryMarkup = createGallaryMurkup(galleryItems);
 
+
 galleryEl.insertAdjacentHTML('beforeend', galleryMarkup);
 
 function createGallaryMurkup(img) {
@@ -26,5 +27,24 @@ function createGallaryMurkup(img) {
 
 }
 
+galleryEl.addEventListener('click', onImgClick);
+function onImgClick(e) {
+    e.preventDefault();
+    if (e.target.nodeName !== "IMG") {
+        return;
+    };
+    const instance = basicLightbox.create(`
+    <img src="${e.target.dataset.source}" width="800" height="600">
+`)
 
+    instance.show();
+
+
+galleryEl.addEventListener('keydown', (e) => {
+    if (e.code === 'Escape') {
+        instance.close();
+    }
+});
+
+};
 
