@@ -40,11 +40,14 @@ function onImgClick(e) {
     instance.show();
 
 
-galleryEl.addEventListener('keydown', (e) => {
-    if (e.code === 'Escape') {
-        instance.close();
+    function onModalClose(e) {if (e.code !== 'Escape') {
+        return;
     }
-});
+        instance.close(() => document.removeEventListener('keydown', onModalClose));
+        
+    };
+    document.addEventListener('keydown', onModalClose);
+
 
 };
 
